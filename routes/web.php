@@ -29,7 +29,7 @@ Route::prefix('admin')->group(function () {
     // Route::get("/cats/{id}/delete" ,[CategoryController::class , "destroy"])->name("cats.delete");
     Route::delete("/cats/{id}" ,[CategoryController::class , "destroy"])->name("cats.delete");
     Route::put("/cats/{id}" ,[CategoryController::class , "update"])->name("cats.update");
-    Route::post("/cats/{id?}" ,[CategoryController::class , "store"])->name("cats.store");
+    Route::post("/cats/{}" ,[CategoryController::class , "store"])->name("cats.store");
 });
 
 

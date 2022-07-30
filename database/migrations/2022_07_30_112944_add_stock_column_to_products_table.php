@@ -13,14 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name',100);
-            $table->string('email',150)->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+        Schema::table('products', function (Blueprint $table) {
+            // $table->addColumn('integer', 'stock', ['default' => 0]);
+            $table->decimal("stock",12,2)->default(0)->after("price");
         });
     }
 
@@ -31,6 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn("stock");
+        });
     }
 };
