@@ -25,8 +25,11 @@ Route::get("/sum/{x}/{y}" ,[DemoController::class , "test"]);
 
 
 Route::prefix('admin')->group(function () {
-    Route::get("/cats" ,[CategoryController::class , "index"])->name("cats.index");
-    Route::post("/cats" ,[CategoryController::class , "store"]);
+    Route::get("/cats/{id?}" ,[CategoryController::class , "index"])->name("cats.index");
+    // Route::get("/cats/{id}/delete" ,[CategoryController::class , "destroy"])->name("cats.delete");
+    Route::delete("/cats/{id}" ,[CategoryController::class , "destroy"])->name("cats.delete");
+    Route::put("/cats/{id}" ,[CategoryController::class , "update"])->name("cats.update");
+    Route::post("/cats/{id?}" ,[CategoryController::class , "store"])->name("cats.store");
 });
 
 

@@ -17,11 +17,12 @@
                         {{ session()->get('message') }}
                     </div>
                 @endif
-                <form action="" method="post">
+
+                <form action="{{route('cats.store' ,['id' => ($edit_cat) ?$edit_cat->id :null ])}}" method="post">
                     @csrf
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" value="{{old('name')}}" placeholder="Enter name">
+                        <input type="text" class="form-control" id="name" name="name" value="{{(old('name') ) ?  old('name') : (($edit_cat)? $edit_cat->name : null )}}" placeholder="Enter name">
                         @error("name")
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -29,12 +30,12 @@
 
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea class="form-control" id="description" name="desc" rows="3">{{old('description')}}</textarea>
+                        <textarea class="form-control" id="description" name="desc" rows="3">{{(old('description') ) ?  old('description') : (($edit_cat)? $edit_cat->description : null )}}</textarea>
                         @error("desc")
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary mt-1">Save</button>
                 </form>
             </div>
             <div class="col-md-6">
@@ -44,6 +45,7 @@
                             <th>#</th>
                             <th>Name</th>
                             <th>Description</th>
+                            <th>&nbsp;</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,6 +54,19 @@
                                 <td scope="row">{{ $cats->firstItem() + $loop->index}}</td>
                                 <td>{{$cat->name}}</td>
                                 <td>{{$cat->description}}</td>
+                                {{-- <td><a href="/admin/cats/{{$cat->id}}/delete"  class="btn btn-sm  btn-danger">Delete</a></td> --}}
+                                <td class ="d-flex">
+                                    {{-- <a href="{{route('cats.delete' , [$cat->id])}}"  class="btn btn-sm  btn-danger">Delete</a> --}}
+
+
+                                    <a href="{{route('cats.index' , [$cat->id])}}"  class="mx-2 btn btn-sm  btn-success">Edit</a>
+
+                                    <form method="post" action="{{route('cats.delete' , [$cat->id])}}">
+                                        @csrf
+                                        @method("DELETE")
+                                        <input type="submit"   class="btn btn-sm  btn-danger" value="Delete">
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

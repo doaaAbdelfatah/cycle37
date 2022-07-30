@@ -11,5 +11,5 @@ class Cat extends Model
 
     // protected $table = 'cats';
 
-
+    
 }
